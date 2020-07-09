@@ -51,6 +51,20 @@ Fraction operator+(int value, const Fraction &f1) {
   return Fraction(f1._numerator * value * f1._denominator, f1._denominator);
 }
 
+Fraction &Fraction::operator+=(Fraction &frac) {
+  this->_numerator *= frac._denominator;
+  this->_numerator += frac._numerator * this->_denominator;
+  this->_denominator *= frac._denominator;
+  this->reduce();
+  return *this;
+}
+
+Fraction &Fraction::operator+=(int value) {
+  this->_numerator += value * this->_denominator;
+  this->reduce();
+  return *this;
+}
+
 Fraction operator-(const Fraction &f1, const Fraction &f2) {
   return Fraction(f1._numerator * f2._denominator -
                       f2._numerator * f1._denominator,
@@ -63,6 +77,20 @@ Fraction operator-(const Fraction &f1, int value) {
 
 Fraction operator-(int value, const Fraction &f1) {
   return Fraction(f1._numerator - value * f1._denominator, f1._denominator);
+}
+
+Fraction &Fraction::operator-=(Fraction &frac) {
+  this->_numerator *= frac._denominator;
+  this->_numerator -= frac._numerator * this->_denominator;
+  this->_denominator *= frac._denominator;
+  this->reduce();
+  return *this;
+}
+
+Fraction &Fraction::operator-=(int value) {
+  this->_numerator -= value * this->_denominator;
+  this->reduce();
+  return *this;
 }
 
 Fraction operator*(const Fraction &f1, const Fraction &f2) {
@@ -78,6 +106,19 @@ Fraction operator*(int value, const Fraction &f1) {
   return Fraction(f1._numerator * value, f1._denominator);
 }
 
+Fraction &Fraction::operator*=(Fraction &frac) {
+  this->_numerator *= frac._numerator;
+  this->_denominator *= frac._denominator;
+  this->reduce();
+  return *this;
+}
+
+Fraction &Fraction::operator*=(int value) {
+  this->_numerator *= value;
+  this->reduce();
+  return *this;
+}
+
 Fraction operator/(const Fraction &f1, const Fraction &f2) {
   return Fraction(f1._numerator * f2._denominator,
                   f1._denominator * f2._numerator);
@@ -91,26 +132,84 @@ Fraction operator/(int value, const Fraction &f1) {
   return Fraction(value * f1._denominator, f1._numerator);
 }
 
+Fraction &Fraction::operator/=(Fraction &frac) {
+  this->_numerator *= frac._denominator;
+  this->_denominator *= frac._numerator;
+  this->reduce();
+  return *this;
+}
+
+Fraction &Fraction::operator/=(int value) {
+  assert(value != 0);
+  this->_denominator *= value;
+  this->reduce();
+  return *this;
+}
+
 bool operator==(const Fraction &f1, const Fraction &f2) {
   return (f1._numerator == f2._numerator && f1._denominator == f2._denominator);
 }
 
+bool operator==(const Fraction &f1, int value) {
+  return f1._numerator == value * f1._denominator;
+}
+
+bool operator==(int value, const Fraction &f1) {
+  return f1._numerator == value * f1._denominator;
+}
+
 bool operator!=(const Fraction &f1, const Fraction &f2) { return !(f1 == f2); }
+
+bool operator!=(const Fraction &f1, int value) { return !(f1 == value); }
+
+bool operator!=(int value, const Fraction &f1) { return !(value == f1); }
 
 bool operator>(const Fraction &f1, const Fraction &f2) {
   return f1._numerator * f2._denominator > f1._denominator * f2._numerator;
+}
+
+bool operator>(const Fraction &f1, int value) {
+  return f1._numerator > value * f1._denominator;
+}
+
+bool operator>(int value, const Fraction &f1) {
+  return f1._numerator > value * f1._denominator;
 }
 
 bool operator>=(const Fraction &f1, const Fraction &f2) {
   return f1._numerator * f2._denominator >= f1._denominator * f2._numerator;
 }
 
+bool operator>=(const Fraction &f1, int value) {
+  return f1._numerator >= value * f1._denominator;
+}
+
+bool operator>=(int value, const Fraction &f1) {
+  return f1._numerator >= value * f1._denominator;
+}
+
 bool operator<(const Fraction &f1, const Fraction &f2) {
   return f1._numerator * f2._denominator < f1._denominator * f2._numerator;
 }
 
+bool operator<(const Fraction &f1, int value) {
+  return f1._numerator < value * f1._denominator;
+}
+
+bool operator<(int value, const Fraction &f1) {
+  return f1._numerator < value * f1._denominator;
+}
+
 bool operator<=(const Fraction &f1, const Fraction &f2) {
   return f1._numerator * f2._denominator <= f1._denominator * f2._numerator;
+}
+
+bool operator<=(const Fraction &f1, int value) {
+  return f1._numerator <= value * f1._denominator;
+}
+
+bool operator<=(int value, const Fraction &f1) {
+  return f1._numerator <= value * f1._denominator;
 }
 
 Fraction &Fraction::operator=(const Fraction &frac) {

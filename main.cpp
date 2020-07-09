@@ -23,5 +23,10 @@ int main() {
   f5 = f5 * 4;
   std::cout << "Pi number (20 iterations): " << float(f5) << ", " << double(f5)
             << std::endl;
+  std::cout << "f1 = " << f1 << ", f2 = " << f2 << std::endl;
+  std::cout << "f1 += f2 += 5: ";
+  f1 += f2 += 5;
+  std::cout << "f1 = " << f1 << ", f2 = " << f2 << std::endl;
+  std::cout << "f1 < 1 ? " << bool(f1 < 1) << std::endl;
   return 0;
 }
