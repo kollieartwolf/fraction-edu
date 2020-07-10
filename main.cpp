@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main() {
-  Fraction f1(15, 6), f2(15, 3), f3(15, 15);
+  Fraction f1(15, 6), f2(-15, 3), f3(15, 15);
   std::cout << "f1: " << f1 << ", f2: " << f2 << ", f3: " << f3 << std::endl;
   std::cout << "f1 * f2 = " << f1 * f2 << std::endl;
   std::cout << "f1 + f2 = " << f1 + f2 << std::endl;
@@ -28,5 +28,6 @@ int main() {
   f1 += f2 += 5;
   std::cout << "f1 = " << f1 << ", f2 = " << f2 << std::endl;
   std::cout << "f1 < 1 ? " << bool(f1 < 1) << std::endl;
+  std::cout << "-f1 = " << -f1 << std::endl;
   return 0;
 }

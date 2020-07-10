@@ -2,13 +2,9 @@
 
 Fraction::Fraction(long long numerator, long long denominator) {
   assert(denominator != 0);
-  if (denominator < 0) {
-    numerator *= -1;
-    denominator *= -1;
-  }
   _numerator = numerator;
   _denominator = denominator;
-  reduce(); /*!< Для упрощения дроби. */
+  reduce(); /*!< Для упрощения дроби и проверки знаменателя. */
 }
 
 Fraction::Fraction(const Fraction &frac)
@@ -35,6 +31,10 @@ void Fraction::reduce() {
   int nod = Fraction::nod(_numerator, _denominator);
   _numerator /= nod;
   _denominator /= nod;
+  if (_denominator < 0) {
+    _numerator *= -1;
+    _denominator *= -1;
+  }
 }
 
 Fraction operator+(const Fraction &f1, const Fraction &f2) {
@@ -49,6 +49,10 @@ Fraction operator+(const Fraction &f1, int value) {
 
 Fraction operator+(int value, const Fraction &f1) {
   return Fraction(f1._numerator * value * f1._denominator, f1._denominator);
+}
+
+Fraction operator+(const Fraction &frac) {
+  return Fraction(frac._numerator, frac._denominator);
 }
 
 Fraction &Fraction::operator+=(Fraction &frac) {
@@ -77,6 +81,10 @@ Fraction operator-(const Fraction &f1, int value) {
 
 Fraction operator-(int value, const Fraction &f1) {
   return Fraction(f1._numerator - value * f1._denominator, f1._denominator);
+}
+
+Fraction operator-(const Fraction &frac) {
+  return Fraction(-frac._numerator, frac._denominator);
 }
 
 Fraction &Fraction::operator-=(Fraction &frac) {
